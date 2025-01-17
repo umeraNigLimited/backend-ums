@@ -1,6 +1,6 @@
 import db from "../dbModel/db.js";
 import crypto, { hash } from "crypto";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import validator from "validator";
 import { idEmail, handleResetPassword } from "../utlities/emails/emails.js";
