@@ -1,0 +1,28 @@
+{
+  "name": "umera-staff-dashboard",
+  "version": "1.0.0",
+  "description": "A Backend Application for the Umera Staff Dashboard",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon ."
+  },
+  "author": "Odunsi Oluwabukola (LogicSense)",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cloudinary": "^2.5.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.1",
+    "firebase": "^11.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "moment-timezone": "^0.5.46",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.16",
+    "pg": "^8.13.1",
+    "socket.io": "^4.8.1",
+    "validator": "^13.12.0"
+  }
+}
