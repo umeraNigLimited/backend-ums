@@ -14,7 +14,7 @@ import { leaveRoute } from "./routes/leave.js";
 import { queryRoute } from "./routes/query.js";
 import { announcementRoute } from "./routes/announcement.js";
 import { emailToDirectors } from "./utlities/emails/emails.js";
-import { imageRoute } from "./routes/images.js";
+// import { imageRoute } from "./routes/images.js";
 
 dotenv.config();
 
@@ -58,7 +58,7 @@ app.use("/api/task", taskRoute);
 app.use("/api/report", reportRoute);
 app.use("/api/leave", leaveRoute);
 app.use("/api/query", queryRoute);
-app.use("/api/image", imageRoute);
+// app.use("/api/image", imageRoute);
 app.use("/api/announcement", announcementRoute);
 
 export { io };
