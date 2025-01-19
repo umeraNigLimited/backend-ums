@@ -19,19 +19,22 @@ export const loginStaff = async (req, res) => {
   if (!office_email || !password) {
     res.status(400).json("All feild must be filled");
   }
-
+  console.log(staff_id, password);
   try {
     const { rows } = await db.query(
-      `SELECT auth.staff_id, last_name, position, staff_role, staff.department, hashed_password
+      `SELECT auth.staff_id, staff.last_name, staff.position, staff.staff_role, staff.department, auth.hashed_password
        FROM auth 
        JOIN staff 
        ON auth.staff_id = staff.staff_id 
-       WHERE office_email = $1`,
+       WHERE staff.office_email = $1`,
       [office_email]
     );
 
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "Staff not found" });
+    }
+
     // console.log(rows);
-    // console.log(rows[0]);
     const hashedPassword = rows[0].hashed_password;
     const match = await bcrypt.compare(password, hashedPassword);
     if (match) {
@@ -44,7 +47,7 @@ export const loginStaff = async (req, res) => {
           staffID: staff_id,
           email: office_email,
           lastName: rows[0].last_name,
-          position: rows[0].postion,
+          position: rows[0].position,
           role: rows[0].staff_role,
           department: rows[0].department,
           token: token,
@@ -128,7 +131,7 @@ export const sendVerification = async (req, res) => {
       res.status(200).json({ message: "Successfully Stored" });
     } else {
       // console.log(rows);
-      res.status(400).json({ message: "Email doee not exist" });
+      res.status(400).json({ error: "Email doee not exist" });
     }
   } catch (err) {
     console.error(err);
@@ -138,14 +141,18 @@ export const sendVerification = async (req, res) => {
 //Create Password
 export const creatingPassword = async (req, res) => {
   const { staff_id, password } = req.body;
+  console.log(staff_id);
+  console.log(password);
 
   // Validation
   if (!staff_id || !password) {
-    return res.status(400).json("Staff ID and Password must be filled");
+    return res
+      .status(400)
+      .json({ error: "Staff ID and Password must be filled" });
   }
 
   if (!validator.isStrongPassword(password)) {
-    return res.status(400).json("Password is not Strong Enough");
+    return res.status(400).json({ error: "Password is not Strong Enough" });
   }
 
   // Hash the password
@@ -181,7 +188,7 @@ export const resetPassword = async (req, res) => {
 
   //Validation
   if (!password) {
-    return res.status(400).json("Password must be filled");
+    return res.status(400).json({ error: "Password must be filled" });
   }
 
   // if (!validator.isEmail(officeEmail)) {

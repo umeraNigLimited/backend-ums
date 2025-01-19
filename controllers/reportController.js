@@ -27,12 +27,18 @@ export const getReport = async (req, res) => {
 
 export const addReport = async (req, res) => {
   const staff_id = req.user;
-  const { content, attachment_url, chalenge, gadget, request } = req.body;
+  const { content, chalenge, gadget, request } = req.body;
+  console.log(content);
+  console.log(chalenge);
+  console.log(gadget);
+  console.log(request);
   try {
     const rows = await db.query(
-      "INSERT INTO reports (staff_id, content, attachment_url, chalenge,  gadget, request) VALUES($1, $2, $3, $4, $5, $6) RETURNING *",
-      [staff_id, content, attachment_url, chalenge, gadget, request]
+      "INSERT INTO reports (staff_id, content, chalenge,  gadget, request) VALUES($1, $2, $3, $4, $5) RETURNING *",
+      [staff_id, content, chalenge, gadget, request]
     );
+    console.log(rows[0]);
+
     res
       .status(200)
       .json({ message: "Inserted Report Successfully", data: rows[0] });

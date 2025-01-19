@@ -9,6 +9,7 @@ const getAllTask = async (req, res) => {
     const { rows } = await db.query("SELECT * FROM tasks WHERE staff_id = $1", [
       staff_id,
     ]);
+    console.log(rows);
     res.json({ message: "up and running", data: rows });
     // console.log(rows);
   } catch (err) {
@@ -38,6 +39,7 @@ const addTask = async (req, res) => {
       "INSERT INTO tasks(staff_id, task_content, priority,due_date,status) VALUES ($1,$2, $3,$4,$5) RETURNING *",
       [staff_id, task_content, priority, due_date, status]
     );
+    // console.log(rows);
     res.status(201).json({ message: "successful", data: rows[0] }); // Return the inserted task as the response
   } catch (err) {
     console.error(err);
