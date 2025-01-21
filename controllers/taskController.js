@@ -4,12 +4,12 @@ import db from "../dbModel/db.js";
 const getAllTask = async (req, res) => {
   const staff_id = req.user;
 
-  console.log(staff_id);
+  // console.log(staff_id);
   try {
     const { rows } = await db.query("SELECT * FROM tasks WHERE staff_id = $1", [
       staff_id,
     ]);
-    console.log(rows);
+    // console.log(rows);
     res.json({ message: "up and running", data: rows });
     // console.log(rows);
   } catch (err) {
@@ -138,7 +138,7 @@ const deleteTask = async (req, res) => {
   const { id } = req.params;
   try {
     const { rows } = await db.query(
-      "DELETE FROM tasks WHERE task_id = $1 AND staff_id = $2",
+      "DELETE FROM tasks WHERE task_id = $1 AND staff_id = $2 RETURNING *",
       [id, staff_id]
     );
 

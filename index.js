@@ -30,7 +30,7 @@ const io = new Server(server, {
       "http://192.168.112.233:5173",
       "https://umera-staff-dashboard.vercel.app",
     ],
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
     credentials: true,
   },
 });
