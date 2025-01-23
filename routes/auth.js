@@ -7,6 +7,7 @@ import {
   sendVerification,
 } from "../controllers/authController.js";
 
+//Express Router
 const router = express.Router();
 //Login Staffs Route
 
