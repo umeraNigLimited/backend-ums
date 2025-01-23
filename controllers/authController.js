@@ -54,7 +54,7 @@ export const loginStaff = async (req, res) => {
         },
       });
     } else {
-      res.status(400).json("Invalid Password");
+      res.status(400).json({ error: "Invalid Password" });
     }
   } catch (err) {
     console.log(err);

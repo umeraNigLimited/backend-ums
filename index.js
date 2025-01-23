@@ -52,6 +52,27 @@ app.use(express.json());
 
 db.connect();
 
+app.use("/keepAppAlive", (req, res) => {
+  console.log("Keeping Server Alive");
+  res.send("App is Alive");
+});
+
+app.use("/", (req, res) => {
+  const html = `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>Odunsi Oluwabukola</title>
+      </head>
+      <body>
+        <h1>This is an App for UMéRA Dashboard by Odunsi Oluwabukola</h1>
+        <p>All the thing wey i write for top na perspe, Make i no lie , Coding Hard die!</p>
+      </body>
+    </html>
+  `;
+  res.send(html);
+});
+
 //Routes
 app.use("/api/staff", staffRoute);
 app.use("/api/task", taskRoute);
@@ -98,21 +119,21 @@ export { io };
 //   });
 // });
 
-// cron.schedule(
-//   "*/5 * * * *",
-//   async () => {
-//     console.log("Keeping App Live Every 5 min");
-// await axios
-//   .get("https://emailbirthdayautomation.onrender.com/keepAppAlive")
-//   .then((res) => console.log("This ran after 5 mins"))
-//   .catch((err) => console.log(err));
-//   },
-//   { scheduled: true }
-// );
+cron.schedule(
+  "*/5 * * * *",
+  async () => {
+    console.log("Keeping App Live Every 5 min");
+    await axios
+      .get("https://backend-ums.onrender.com/keepAppAlive")
+      .then((res) => console.log("This ran after 5 mins"))
+      .catch((err) => console.log(err));
+  },
+  { scheduled: true }
+);
 
 cron.schedule(
-  // "0 18 * * 5",
-  "0 9 * * *",
+  "0 18 * * 5",
+  // "0 9 * * *",
   async () => {
     const now = moment().tz("Africa/Lagos");
     console.log(

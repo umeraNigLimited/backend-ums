@@ -33,11 +33,11 @@ export const addReport = async (req, res) => {
   console.log(gadget);
   console.log(request);
   try {
-    const rows = await db.query(
+    const { rows } = await db.query(
       "INSERT INTO reports (staff_id, content, chalenge,  gadget, request) VALUES($1, $2, $3, $4, $5) RETURNING *",
       [staff_id, content, chalenge, gadget, request]
     );
-    console.log(rows[0]);
+    console.log("This rows", rows[0]);
 
     res
       .status(200)
