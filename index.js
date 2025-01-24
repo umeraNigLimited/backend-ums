@@ -52,6 +52,15 @@ app.use(express.json());
 
 db.connect();
 
+//Routes
+app.use("/api/staff", staffRoute);
+app.use("/api/task", taskRoute);
+app.use("/api/report", reportRoute);
+app.use("/api/leave", leaveRoute);
+app.use("/api/query", queryRoute);
+// app.use("/api/image", imageRoute);
+app.use("/api/announcement", announcementRoute);
+
 app.use("/keepAppAlive", (req, res) => {
   console.log("Keeping Server Alive");
   res.send("App is Alive");
@@ -72,15 +81,6 @@ app.use("/", (req, res) => {
   `;
   res.send(html);
 });
-
-//Routes
-app.use("/api/staff", staffRoute);
-app.use("/api/task", taskRoute);
-app.use("/api/report", reportRoute);
-app.use("/api/leave", leaveRoute);
-app.use("/api/query", queryRoute);
-// app.use("/api/image", imageRoute);
-app.use("/api/announcement", announcementRoute);
 
 export { io };
 

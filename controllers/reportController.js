@@ -8,6 +8,9 @@ export const getReport = async (req, res) => {
       reports.staff_id,
       reports.content,
       reports.chalenge,
+      reports.workinprogress,
+      reports.objectives,
+      reports.recommendations,
       reports.gadget,
       reports.request,
       reports.sent_at
@@ -27,15 +30,34 @@ export const getReport = async (req, res) => {
 
 export const addReport = async (req, res) => {
   const staff_id = req.user;
-  const { content, chalenge, gadget, request } = req.body;
+  const {
+    content,
+    chalenge,
+    workInProgress,
+    objectives,
+    recommendations,
+    gadget,
+    request,
+  } = req.body;
   console.log(content);
   console.log(chalenge);
+  console.log(workInProgress);
+  console.log(recommendations);
   console.log(gadget);
   console.log(request);
   try {
     const { rows } = await db.query(
-      "INSERT INTO reports (staff_id, content, chalenge,  gadget, request) VALUES($1, $2, $3, $4, $5) RETURNING *",
-      [staff_id, content, chalenge, gadget, request]
+      "INSERT INTO reports (staff_id, content, chalenge,  workinprogress, objectives, recommendations,  gadget, request) VALUES($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+      [
+        staff_id,
+        content,
+        chalenge,
+        workInProgress,
+        objectives,
+        recommendations,
+        gadget,
+        request,
+      ]
     );
     console.log("This rows", rows[0]);
 
@@ -61,7 +83,15 @@ export const getSingleReport = async (req, res) => {
 
 export const updateReport = async (req, res) => {
   const { id } = req.params; // Report ID from URL
-  const { content, chalenge, gadget, request } = req.body; // New content to update
+  const {
+    content,
+    chalenge,
+    workInProgress,
+    objectives,
+    recommendations,
+    gadget,
+    request,
+  } = req.body; // New content to update
   const staff_id = req.user; // Staff ID from the token
 
   // console.log(staff_id);
@@ -83,8 +113,17 @@ export const updateReport = async (req, res) => {
 
     // Update the report
     const updateResult = await db.query(
-      "UPDATE reports SET content = $1, chalenge = $2, gadget = $3, request = $4, sent_at = CURRENT_TIMESTAMP WHERE report_id = $5 RETURNING *",
-      [content, chalenge, gadget, request, id]
+      "UPDATE reports SET content = $1, chalenge = $2, workinprogress =$3, objectives = $4, recommendations = $5, gadget = $6, request = $7, sent_at = CURRENT_TIMESTAMP WHERE report_id = $8 RETURNING *",
+      [
+        content,
+        chalenge,
+        workInProgress,
+        objectives,
+        recommendations,
+        gadget,
+        request,
+        id,
+      ]
     );
 
     // console.log(updateResult.rows);
@@ -96,6 +135,9 @@ export const updateReport = async (req, res) => {
       reports.staff_id,
       reports.content,
       reports.chalenge,
+      reports.workinprogress,
+      reports.objectives,
+      reports.recommendations,
       reports.gadget,
       reports.request,
       reports.sent_at
@@ -120,7 +162,7 @@ export const updateReport = async (req, res) => {
 export const deleteReport = async (req, res) => {
   const { id } = req.params;
   try {
-    await db.query("DELETE FROM reports  WHERE report_id = $1 ", [
+    await db.query("DELETE FROM reports WHERE report_id = $1 ", [
       id,
       title,
       content,

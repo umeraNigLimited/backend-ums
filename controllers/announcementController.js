@@ -43,12 +43,13 @@ export const addAnnouncement = async (req, res) => {
     );
 
     io.emit("broadcast_announcement", announcement.rows[0]); // Notify all clients
-    console.log(announcement.rows[0]);
+    console.log(announcement.rows);
     res.status(201).json({
       message: "Successfully Broadcasted",
-      data: announcement.rows,
+      data: announcement.rows[0],
     });
   } catch (err) {
+    res.status(500).json({ error: "Server Error" });
     console.error(err);
   }
 };

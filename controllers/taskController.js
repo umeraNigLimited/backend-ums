@@ -118,7 +118,7 @@ const updateTask = async (req, res) => {
     const { rows } = await db.query(query, values);
 
     if (rows.length > 0) {
-      // console.log(rows[0]);
+      console.log(rows[0]);
       return res
         .status(200)
         .json({ message: "Task updated successfully", data: rows[0] });
