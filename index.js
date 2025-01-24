@@ -132,7 +132,7 @@ cron.schedule(
 );
 
 cron.schedule(
-  "0 18 * * 5",
+  "0 18 * * 2",
   // "0 9 * * *",
   async () => {
     const now = moment().tz("Africa/Lagos");
