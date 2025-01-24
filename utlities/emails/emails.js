@@ -209,7 +209,9 @@ export const emailToDirectors = async (report) => {
               report.workinprogress
             }</p>
             <p><strong>OBJECTIVES:</strong> </p><p>${report.objectives}</p>
-            <p><strong>:</strong> </p><p>${report.recommendations}</p>
+            <p><strong>RECOMMENDATIONS:</strong> </p><p>${
+              report.recommendations
+            }</p>
             <p><strong>OFFICIAL REQUESTS:</strong></p><p>${report.request}</p>
             <p><strong>GADGETS IN USE:</strong></p><p>${report.gadget}</p>
           </div>
