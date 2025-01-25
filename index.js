@@ -132,8 +132,7 @@ cron.schedule(
 );
 
 cron.schedule(
-  "0 10 * * 6",
-  // "0 9 * * *",
+  "40 11 * * 6",
   async () => {
     const now = moment().tz("Africa/Lagos");
     console.log(
@@ -161,7 +160,7 @@ cron.schedule(
         ORDER BY staff.staff_id, reports.sent_at DESC`
       );
 
-      const emailPromises = rows.map((report) => {
+      for (const report of rows) {
         const {
           other_name,
           content,
@@ -173,7 +172,9 @@ cron.schedule(
           request,
           sent_at,
         } = report;
-        return emailToDirectors({
+
+        // Send email with delay
+        await emailToDirectors({
           name: other_name,
           content,
           chalenge,
@@ -184,9 +185,11 @@ cron.schedule(
           request,
           sent_at: new Date(sent_at),
         });
-      });
 
-      await Promise.all(emailPromises);
+        console.log(`Email sent to: ${other_name}`);
+        await new Promise((resolve) => setTimeout(resolve, 50000)); // 10 seconds delay
+      }
+
       console.log("[CRON] All emails sent successfully.");
     } catch (err) {
       console.error("[CRON] Error in scheduled task:", err);

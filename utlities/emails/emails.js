@@ -5,9 +5,18 @@ export const transporter = nodemailer.createTransport({
   port: 587,
   secure: false, // true for port 465, false for other ports
   auth: {
-    user: "noreply@umera.ng",
+    user: "admin@umera.ng",
     pass: process.env.PASS,
+    tls: {
+      rejectUnauthorized: false,
+    },
   },
+  pool: true, // Enable connection pooling
+  maxConnections: 5, // Maximum number of connections to maintain
+  maxMessages: 100, // Maximum number of messages per connection
+  connectionTimeout: 60000, // Increase timeout
+  socketTimeout: 60000,
+  idleTimeout: 60000,
 });
 
 export const idEmail = async (id, name, email) => {
@@ -111,7 +120,7 @@ export const handleResetPassword = async (token, email) => {
 
 export const emailToDirectors = async (report) => {
   const mailOptions = {
-    from: "noreply@umera.ng",
+    from: "admin@umera.ng",
     to: "yemisi@umera.ng",
     subject: `Report of ${report.name}`,
     html: `
@@ -121,104 +130,55 @@ export const emailToDirectors = async (report) => {
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <title>Weekly Staff Report</title>
-      <style>
-        body {
-          font-family: Arial, sans-serif;
-          margin: 0;
-          padding: 0;
-          background-color: #f4f4f9;
-          color: #333;
-        }
-        .email-container {
-          max-width: 600px;
-          margin: 20px auto;
-          background: #fff;
-          border-radius: 8px;
-          overflow: hidden;
-          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-        .header {
-          background: #890709;
-          color: #fff;
-          padding: 30px;
-          text-align: center;
-          border-bottom: 2px solid #fff;
-        }
-        .header h1 {
-          margin: 0;
-          font-size: 28px;
-        }
-        .body {
-          padding: 20px;
-          line-height: 1.6;
-        }
-        .body p {
-          margin: 10px 0;
-        }
-        .report-section {
-          background: #f9f9f9;
-          padding: 20px;
-          margin: 20px 0;
-          border-left: 5px solid #890709;
-          border-radius: 5px;
-        }
-        .report-section p {
-          margin: 8px 0;
-          font-size: 14px;
-          color: #555;
-        }
-        .report-section strong {
-          color: #890709;
-        }
-        .footer {
-          background: #333;
-          color: #fff;
-          text-align: center;
-          padding: 15px;
-          font-size: 14px;
-        }
-        .footer a {
-          color: #890709;
-          text-decoration: none;
-        }
-        @media screen and (max-width: 600px) {
-          .email-container {
-            width: 100% !important;
-          }
-          .header h1 {
-            font-size: 24px;
-          }
-        }
-      </style>
     </head>
-    <body>
-      <div class="email-container">
-        <div class="header">
-          <h1>Weekly Staff Report</h1>
+    <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333;">
+      <div style="max-width: 600px; margin: 20px auto; background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+        <div style="background: #890709; color: #fff; padding: 30px; text-align: center; border-bottom: 2px solid #fff;">
+          <h1 style="margin: 0; font-size: 28px;">Weekly Staff Report</h1>
         </div>
-        <div class="body">
+        <div style="padding: 20px; line-height: 1.6;">
           <p>Dear Directors,</p>
           <p>Please find below the latest report submitted by <strong>${
             report.name
           }</strong>.</p>
-          <div class="report-section">
-            <p><strong>SUBMITTED ON:</strong></p><p>${report.sent_at}</p>
-            <p><strong>TASKS OVERVIEW:</strong></p><p>${report.content}</p>
-            <p><strong>CHALENGES:</strong> </p><p>${report.chalenge}</p>
-            <p><strong>WORK IN PROGRESS:</strong> </p><p>${
+          <div style="background: #f9f9f9; padding: 20px; margin: 20px 0; border-left: 5px solid #890709; border-radius: 5px;>
+            <p style="margin: 8px 0; font-size: 14px; color: #555;"><strong style="color: #890709;">SUBMITTED ON:</strong></p>
+            <pre style="margin: 8px 0; font-size: 14px; color: #555;">${
+              report.sent_at
+            }</pre>
+            <p style="margin: 8px 0; font-size: 14px; color: #555;"><strong style="color: #890709;">TASKS OVERVIEW:</strong></p>
+            <pre style="margin: 8px 0; font-size: 14px; color: #555;">${
+              report.content
+            }</pre>
+            <p style="margin: 8px 0; font-size: 14px; color: #555;"><strong style="color: #890709;">CHALLENGES:</strong></p>
+            <pre style="margin: 8px 0; font-size: 14px; color: #555;">${
+              report.chalenge
+            }</pre>
+            <p style="margin: 8px 0; font-size: 14px; color: #555;"><strong style="color: #890709;">WORK IN PROGRESS:</strong></p>
+            <pre style="margin: 8px 0; font-size: 14px; color: #555;">${
               report.workinprogress
-            }</p>
-            <p><strong>OBJECTIVES:</strong> </p><p>${report.objectives}</p>
-            <p><strong>RECOMMENDATIONS:</strong> </p><p>${
+            }</pre>
+            <p style="margin: 8px 0; font-size: 14px; color: #555;"><strong style="color: #890709;">OBJECTIVES:</strong></p>
+            <pre style="margin: 8px 0; font-size: 14px; color: #555;">${
+              report.objectives
+            }</pre>
+            <p style="margin: 8px 0; font-size: 14px; color: #555;"><strong style="color: #890709;">RECOMMENDATIONS:</strong></p>
+            <pre style="margin: 8px 0; font-size: 14px; color: #555;">${
               report.recommendations
-            }</p>
-            <p><strong>OFFICIAL REQUESTS:</strong></p><p>${report.request}</p>
-            <p><strong>GADGETS IN USE:</strong></p><p>${report.gadget}</p>
+            }</pre>
+            <p style="margin: 8px 0; font-size: 14px; color: #555;"><strong style="color: #890709;">OFFICIAL REQUESTS:</strong></p>
+            <pre style="margin: 8px 0; font-size: 14px; color: #555;">${
+              report.request
+            }</pre>
+            <p style="margin: 8px 0; font-size: 14px; color: #555;"><strong style="color: #890709;">GADGETS IN USE:</strong></p>
+            <pre style="margin: 8px 0; font-size: 14px; color: #555;">${
+              report.gadget
+            }</pre>
           </div>
         </div>
-        <div class="footer">
+        <div style="background: #333; color: #fff; text-align: center; padding: 15px; font-size: 14px;">
           <p>&copy; ${new Date().getFullYear()} UMéRA NG. All Rights Reserved.</p>
-          <p><a href="mailto:support@yourcompany.com">Contact Support</a></p>
+          <p><a href="mailto:support@yourcompany.com" style="color: #890709; text-decoration: none;">Contact Support</a></p>
         </div>
       </div>
     </body>
@@ -226,8 +186,7 @@ export const emailToDirectors = async (report) => {
   `,
   };
 
-  console.log("The Email don go");
-  await transporter.sendMail(mailOptions, (error, info) => {
+  transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Error sending email:", error);
     } else {
