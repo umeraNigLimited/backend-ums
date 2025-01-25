@@ -132,7 +132,7 @@ cron.schedule(
 );
 
 cron.schedule(
-  "0 18 * * 2",
+  "0 10 * * 6",
   // "0 9 * * *",
   async () => {
     const now = moment().tz("Africa/Lagos");
@@ -150,6 +150,9 @@ cron.schedule(
           reports.staff_id,
           reports.content,
           reports.chalenge,
+          reports.workinprogress,
+          reports.objectives,
+          reports.recommendations,
           reports.gadget,
           reports.request,
           reports.sent_at
@@ -159,12 +162,24 @@ cron.schedule(
       );
 
       const emailPromises = rows.map((report) => {
-        const { other_name, content, chalenge, gadget, request, sent_at } =
-          report;
+        const {
+          other_name,
+          content,
+          chalenge,
+          workinprogress,
+          objectives,
+          recommendations,
+          gadget,
+          request,
+          sent_at,
+        } = report;
         return emailToDirectors({
           name: other_name,
           content,
           chalenge,
+          workinprogress,
+          objectives,
+          recommendations,
           gadget,
           request,
           sent_at: new Date(sent_at),
