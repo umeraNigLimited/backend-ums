@@ -66,21 +66,21 @@ app.use("/api/announcement", announcementRoute);
 //   res.send("App is Alive");
 // });
 
-app.use("/", (req, res) => {
-  const html = `
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Odunsi Oluwabukola</title>
-      </head>
-      <body>
-        <h1>This is an App for UMéRA Dashboard by Odunsi Oluwabukola</h1>
-        <p>All the thing wey i write for top na perspe, Make i no lie , Coding Hard die!</p>
-      </body>
-    </html>
-  `;
-  res.send(html);
-});
+// app.use("/", (req, res) => {
+//   const html = `
+//     <!DOCTYPE html>
+//     <html>
+//       <head>
+//         <title>Odunsi Oluwabukola</title>
+//       </head>
+//       <body>
+//         <h1>This is an App for UMéRA Dashboard by Odunsi Oluwabukola</h1>
+//         <p>All the thing wey i write for top na perspe, Make i no lie , Coding Hard die!</p>
+//       </body>
+//     </html>
+//   `;
+//   res.send(html);
+// });
 
 export { io };
 
