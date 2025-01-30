@@ -6,13 +6,11 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "nodemon .",
-    "build": "npm rebuild bcrypt --build-from-source"
+    "dev": "nodemon ."
   },
   "author": "Odunsi Oluwabukola (LogicSense)",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.1.1",
     "bcryptjs": "^2.4.3",
     "cloudinary": "^2.5.1",
     "cors": "^2.8.5",
