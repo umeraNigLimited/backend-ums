@@ -1,5 +1,5 @@
 import db from "../dbModel/db.js";
-import crypto, { hash } from "crypto";
+import crypto from "crypto";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import validator from "validator";
