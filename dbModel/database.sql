@@ -163,8 +163,9 @@ CREATE TABLE tasks (
     completed_at TIMESTAMP
 );
 
-
-
+INSERT INTO staff (
+    last_name, other_name, join_date, position, office_email, birth_date, personal_email, staff_role, department
+) VALUES ('Alabi', 'Olaronke', '2024-12-01', 'Social Media Manager', 'ronkealabi@umera.ng', '2003-07-02', 'olaronex@gmail.com', 'intern', 'UMeRA-DPT-MD');
 
 
 -- CREATE TABLE tasks (

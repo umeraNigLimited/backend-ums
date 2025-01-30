@@ -61,10 +61,10 @@ app.use("/api/query", queryRoute);
 // app.use("/api/image", imageRoute);
 app.use("/api/announcement", announcementRoute);
 
-app.use("/keepAppAlive", (req, res) => {
-  console.log("Keeping Server Alive");
-  res.send("App is Alive");
-});
+// app.use("/keepAppAlive", (req, res) => {
+//   console.log("Keeping Server Alive");
+//   res.send("App is Alive");
+// });
 
 app.use("/", (req, res) => {
   const html = `
@@ -119,17 +119,17 @@ export { io };
 //   });
 // });
 
-cron.schedule(
-  "*/5 * * * *",
-  async () => {
-    console.log("Keeping App Live Every 5 min");
-    await axios
-      .get("https://backend-ums.onrender.com/keepAppAlive")
-      .then((res) => console.log("This ran after 5 mins"))
-      .catch((err) => console.log(err));
-  },
-  { scheduled: true }
-);
+// cron.schedule(
+//   "*/5 * * * *",
+//   async () => {
+//     console.log("Keeping App Live Every 5 min");
+//     await axios
+//       .get("https://backend-ums.onrender.com/keepAppAlive")
+//       .then((res) => console.log("This ran after 5 mins"))
+//       .catch((err) => console.log(err));
+//   },
+//   { scheduled: true }
+// );
 
 cron.schedule(
   "40 11 * * 6",
