@@ -28,3 +28,34 @@ export const getDashboardData = async (req, res) => {
     res.status(401).json({ error: "Invalid or expired token" });
   }
 };
+
+export const getStaff = async (req, res) => {
+  const id = req.user;
+  try {
+    const { rows } = await db.query(
+      "SELECT * FROM staff WHERE staff_id = $1 AND is_admin = TRUE",
+      [id]
+    );
+    if (rows.length > 0) {
+      return res.status(201).json({ message: rows });
+    }
+
+    return res.status(404).json({ error: "Invalid Request" });
+  } catch (err) {
+    return res.status(500).json({ error: "server Error" });
+  }
+};
+
+export const addStaff = async (req, res) => {
+  const id = req.user;
+  try {
+    const { rows } = await db.query("INSERT INTO staff  VALUES()", [id]);
+    if (rows.length > 0) {
+      return res.status(201).json({ message: rows });
+    }
+
+    return res.status(404).json({ error: "Invalid Request" });
+  } catch (err) {
+    return res.status(500).json({ error: "server Error" });
+  }
+};

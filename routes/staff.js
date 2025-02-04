@@ -1,12 +1,12 @@
-import express from "express"
+import express from "express";
+import { requiredAuth } from "../middleware/requireAuth.js";
+import { getStaff } from "../controllers/staffController.js";
 
-const router = express.Router()
+const router = express.Router();
 
+router.use(requiredAuth);
 
+// router.post("/", addLogin);
+router.get("/", getStaff);
 
-router.post('/', addLogin)
-
-
-
-
-export default router
+export { router as staffRoute };

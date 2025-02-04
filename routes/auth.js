@@ -25,7 +25,7 @@ router.post("/create_password", creatingPassword);
 //Register Staffs Route
 router.patch("/reset_password/:id", resetPassword);
 
-export { router as staffRoute };
+export { router as authRoute };
 
 //Staffs can Create, Read annd Write Leave, Messages, and Query
 //They can only delete if the

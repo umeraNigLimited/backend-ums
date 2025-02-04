@@ -6,7 +6,7 @@ import http from "http";
 import { Server } from "socket.io";
 import dotenv from "dotenv";
 import db from "./dbModel/db.js";
-import { staffRoute } from "./routes/auth.js";
+import { authRoute } from "./routes/auth.js";
 import { taskRoute } from "./routes/task.js";
 // import { sendMessage } from "./controllers/messageController.js";
 import { reportRoute } from "./routes/report.js";
@@ -14,6 +14,7 @@ import { leaveRoute } from "./routes/leave.js";
 import { queryRoute } from "./routes/query.js";
 import { announcementRoute } from "./routes/announcement.js";
 import { emailToDirectors } from "./utlities/emails/emails.js";
+import { staffRoute } from "./routes/staff.js";
 // import { imageRoute } from "./routes/images.js";
 
 dotenv.config();
@@ -53,6 +54,7 @@ app.use(express.json());
 db.connect();
 
 //Routes
+app.use("/api/auth", authRoute);
 app.use("/api/staff", staffRoute);
 app.use("/api/task", taskRoute);
 app.use("/api/report", reportRoute);
