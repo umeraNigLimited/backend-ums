@@ -158,7 +158,7 @@ export const emailToDirectors = async (report) => {
             <pre style="margin: 8px 0; font-size: 14px; color: #555;">${
               report.workinprogress
             }</pre>
-            <p style="margin: 8px 0; font-size: 14px; color: #555;"><strong style="color: #890709;">OBJECTIVES:</strong></p>
+            <p style="margin: 8px 0; font-size: 14px; color: #555;"><strong style="color: #890709;">OBJECTIVES/INNOVATIONS:</strong></p>
             <pre style="margin: 8px 0; font-size: 14px; color: #555;">${
               report.objectives
             }</pre>

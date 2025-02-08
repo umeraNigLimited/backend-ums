@@ -189,7 +189,7 @@ cron.schedule(
         });
 
         console.log(`Email sent to: ${other_name}`);
-        await new Promise((resolve) => setTimeout(resolve, 50000)); // 10 seconds delay
+        await new Promise((resolve) => setTimeout(resolve, 60000)); // 1 min delay
       }
 
       console.log("[CRON] All emails sent successfully.");
