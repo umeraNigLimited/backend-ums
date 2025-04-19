@@ -110,7 +110,7 @@ export const sendVerification = async (req, res) => {
       "SELECT * FROM staff WHERE office_email = $1",
       [officeEmail]
     );
-    // console.log(rows);
+
     if (rows.length > 0) {
       //Send Reset Token
       const staff_id = rows[0].staff_id;

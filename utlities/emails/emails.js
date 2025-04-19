@@ -6,7 +6,7 @@ export const transporter = nodemailer.createTransport({
   secure: false, // true for port 465, false for other ports
   auth: {
     user: "admin@umera.ng",
-    pass: process.env.PASS,
+    pass: process.env.NEWPASS,
     tls: {
       rejectUnauthorized: false,
     },
